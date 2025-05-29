@@ -18,7 +18,7 @@ public class SpringJpaApplication implements CommandLineRunner {
     }
 
     public void run(String... args) throws Exception {
-        studentDAO.save(new Student(null, "Jack Fabric", 3.20));
+        studentDAO.save(new Student(11, "Jack Fabric", 3.20));
         studentDAO.findAll().forEach(System.out::println);
     }
 }
