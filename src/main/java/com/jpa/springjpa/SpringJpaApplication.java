@@ -1,6 +1,5 @@
 package com.jpa.springjpa;
 
-
 import com.jpa.springjpa.dao.StudentDAO;
 import com.jpa.springjpa.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
