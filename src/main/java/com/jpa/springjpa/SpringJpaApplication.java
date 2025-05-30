@@ -11,12 +11,19 @@ public class SpringJpaApplication {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("test_01");
         EntityManager em = emf.createEntityManager();
 
-        em.getTransaction().begin(); //every entitymanager creates only one transaction
-        Student s = new Student();
-        s.setName("Jack Tharmost");
-        s.setCgpa(3.77);
+        try {
+            em.getTransaction().begin(); //every entitymanager creates only one transaction
+            Student s = new Student();
+            s.setName("Jack Tharmost");
+            s.setCgpa(3.77);
 
-        em.persist(s); // just cash data
-        em.getTransaction().commit(); // reflect to db
+            double ans = 1/0;
+
+            em.persist(s); // just cash data
+            em.getTransaction().commit(); // reflect to db
+        }catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        }
     }
 }
