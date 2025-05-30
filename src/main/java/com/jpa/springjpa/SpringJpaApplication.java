@@ -6,12 +6,14 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
-public class SpringJpaApplication {
-    public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("test_01");
-        EntityManager em = emf.createEntityManager();
+import java.util.function.Consumer;
 
-        try {
+public class SpringJpaApplication {
+    private final static EntityManagerFactory emf = Persistence.createEntityManagerFactory("test_01");
+    private final static EntityManager em = emf.createEntityManager();
+    public static void main(String[] args) {
+
+        /*try {
             em.getTransaction().begin(); //every entitymanager creates only one transaction
             Student s = new Student();
             s.setName("Jack Tharmost");
@@ -24,6 +26,28 @@ public class SpringJpaApplication {
         }catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();
+        }*/
+
+        transactional((em) -> {
+            Student s = new Student();
+            s.setName("Plan Thander");
+            s.setCgpa(3.77);
+            em.persist(s); // just cash data
+            double ans = 1/0;
+        });
+    }
+
+    private static void transactional(Consumer<EntityManager> consumer) {
+        // @transaction annotation work like this
+        em.getTransaction().begin(); //before
+        try {
+            consumer.accept(em);
+        }catch (Exception e) {
+            em.getTransaction().rollback(); //after throw
+            throw new RuntimeException("Error in transaction");
         }
+        em.getTransaction().commit(); //after advice
+        em.close();
+        emf.close();
     }
 }
