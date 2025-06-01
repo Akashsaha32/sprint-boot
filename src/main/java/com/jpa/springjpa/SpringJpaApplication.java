@@ -30,10 +30,10 @@ public class SpringJpaApplication {
 
         transactional((em) -> {
             Student s = new Student();
-            s.setName("Plan Thander");
-            s.setCgpa(3.77);
+            s.setName("Jack Astor");
+            s.setCgpa(3.87);
             em.persist(s); // just cash data
-            double ans = 1/0;
+            //double ans = 1/0;
         });
     }
 
