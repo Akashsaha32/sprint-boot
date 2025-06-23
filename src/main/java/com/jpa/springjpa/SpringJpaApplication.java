@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 public class SpringJpaApplication {
@@ -28,12 +29,21 @@ public class SpringJpaApplication {
             em.getTransaction().rollback();
         }*/
 
+        /*
+        * 1. Transient State
+        * 2. Persistence State / Managed State
+        * 3. detach state
+        * 4. remove state
+        */
         transactional((em) -> {
-            Student s = new Student();
-            s.setName("Plan Thander");
-            s.setCgpa(3.77);
-            em.persist(s); // just cash data
-            //double ans = 1/0;
+            Student s = new Student(null, "Mark Beniof", 3.98);
+
+            em.persist(s);
+            s.setCgpa(2.50);
+            System.out.println(s);
+            em.detach(s);
+
+
         });
     }
 
