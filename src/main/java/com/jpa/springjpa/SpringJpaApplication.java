@@ -36,14 +36,17 @@ public class SpringJpaApplication {
         * 4. remove state
         */
         transactional((em) -> {
-            Student s = new Student(null, "Mark Beniof", 3.98);
+            /*Student s = new Student(null, "Mark Beniof", 3.98);
 
             em.persist(s);
             s.setCgpa(2.50);
             System.out.println(s);
-            em.detach(s);
+            em.detach(s);*/
 
-
+            var map = em.getProperties();
+            map.forEach((k, v) -> {
+                System.out.println(k + " => "+v);
+            });
         });
     }
 
