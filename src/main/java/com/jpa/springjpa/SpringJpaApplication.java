@@ -33,7 +33,7 @@ public class SpringJpaApplication {
             s.setName("Plan Thander");
             s.setCgpa(3.77);
             em.persist(s); // just cash data
-            double ans = 1/0;
+            //double ans = 1/0;
         });
     }
 
