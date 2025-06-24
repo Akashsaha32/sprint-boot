@@ -6,7 +6,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 
 public class SpringJpaApplication {
@@ -47,6 +49,18 @@ public class SpringJpaApplication {
             map.forEach((k, v) -> {
                 System.out.println(k + " => "+v);
             });
+
+            var stu = em.find(Student.class, 21);
+            em.detach(stu);
+            stu.setCgpa(4.00);
+            em.merge(stu); //if id get then update if not then create (first select -> then insert or update)
+            stu.setCgpa(5.00); // so it will not reflect in DB.
+
+            /*
+            * If data is in manage state then don't need save, update or merge
+            * after successfully commit it will automatically happen
+            * don't wast unnecessary cpu burn
+            */
         });
     }
 
