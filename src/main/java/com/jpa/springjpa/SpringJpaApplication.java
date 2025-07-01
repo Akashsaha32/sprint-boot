@@ -16,8 +16,40 @@ public class SpringJpaApplication {
     private final static EntityManager em = emf.createEntityManager();
     public static void main(String[] args) {
 
+        var s2 = new Student(8, "Jack Fabric", 3.2);
         transactional((em) -> {
+            var s = em.find(Student.class, 17);
+            var s3 = em.getReference(Student.class, 14);
+            /*System.out.println(em.contains(s));
+            System.out.println(em.contains(s2));
+            if(em.contains(s)){
+                em.remove(s);
+            }*/
+            //s.setName("Akash");
 
+            //System.out.println(s);
+            //System.out.println(s3);  //it will get a proxy object, If needed then query called
+
+            //jpql -> Java Persistence Query Language
+
+            var s4 = em.find(Student.class, 4);
+            var s5 = em.find(Student.class, 17); //for s, s4, s5 should be called 3 select query but called 2
+                                                            // cause 17 is in already persistence context
+                                                            // but if we need intermeadate quary we can refresh it
+            System.out.println(s);
+            sleep(15000);
+
+            em.refresh(s);
+            s = em.find(Student.class, 17);
+            System.out.println(s);
+
+            /*
+                for large data set we can first data in db cached it is not permanent
+                after commit permanently save data to db
+                always use clear() with flush() other it should have to check save data is in or not
+            */
+            em.flush();
+            em.clear();
         });
     }
 
@@ -33,5 +65,13 @@ public class SpringJpaApplication {
         em.getTransaction().commit(); //after advice
         em.close();
         emf.close();
+    }
+
+    private static void sleep(long ms){
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

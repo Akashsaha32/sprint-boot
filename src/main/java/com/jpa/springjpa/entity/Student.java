@@ -2,6 +2,7 @@ package com.jpa.springjpa.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Table(name = "Student_table")
@@ -10,6 +11,7 @@ import lombok.*;
 @ToString
 @Getter
 @Setter
+@DynamicUpdate
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
