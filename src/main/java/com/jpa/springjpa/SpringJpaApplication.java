@@ -2,13 +2,9 @@ package com.jpa.springjpa;
 
 
 import com.jpa.springjpa.entity.Student;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Consumer;
 
 public class SpringJpaApplication {
@@ -37,7 +33,7 @@ public class SpringJpaApplication {
                                                             // cause 17 is in already persistence context
                                                             // but if we need intermeadate quary we can refresh it
             System.out.println(s);
-            sleep(15000);
+            sleep(2000);
 
             em.refresh(s);
             s = em.find(Student.class, 17);
@@ -50,6 +46,35 @@ public class SpringJpaApplication {
             */
             em.flush();
             em.clear();
+
+            // createQuery
+            Query q = em.createQuery("select s from Student s where s.id=1");
+            Query q1 = em.createQuery("select s from Student s where s.id=?1");
+            q1.setParameter(1, 2);
+            Query q2 = em.createQuery("select s from Student s where s.id=:stu_id");
+            q2.setParameter("stu_id", 3);
+
+            System.out.println(q.getSingleResult());
+            System.out.println(q1.getSingleResult());
+            System.out.println(q2.getSingleResult());
+
+            System.out.println("printling all students\n______________________________");
+
+            /*TypedQuery<Student> q3 = em.createQuery("select s from Student s", Student.class);
+
+            //q3.setFirstResult(2);
+            q3.setMaxResults(3);
+
+            List<Student> students = q3.getResultList();
+            students.forEach(System.out::println);
+            */
+            em.createQuery("select s from Student s order by id asc ", Student.class)
+                    .setFirstResult(2)
+                    .setMaxResults(3)
+                    .getResultList()
+                    .forEach(System.out::println);
+
+            System.out.println(em.getDelegate());
         });
     }
 
