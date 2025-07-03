@@ -11,7 +11,8 @@ import java.util.List;
 @Table(name = "Student_table")
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = {"courses"})
+//@ToString(exclude = {"courses"})
+@ToString
 @Getter
 @Setter
 @DynamicUpdate

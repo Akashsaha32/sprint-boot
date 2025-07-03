@@ -15,8 +15,26 @@ public class SpringJpaApplication {
 
         transactional((em) -> {
             // N + 1 problem
+            /*
             var student = em.find(Student.class, 1);
             System.out.println(student+ "\n" + student.getCourses());
+            */
+
+            //for this first get all Student and for every student_id get course
+            //This is N+1 problem
+            // for Student get query 1 and all N student call N query total : N+1
+            /*var student = em.createQuery("Select s from Student s", Student.class)
+                    .getResultList();*/
+
+            //solution of N+1 problem
+            var student = em.createQuery("Select s from Student s JOIN FETCH s.courses", Student.class)
+                    .getResultList();
+            System.out.println(student);
+            for(var s: student) {
+                System.out.println(s.getCourses());
+            }
+            System.out.println(student);
+
         });
     }
 
