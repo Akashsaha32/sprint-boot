@@ -3,6 +3,7 @@ package com.jpa.springjpa;
 
 import com.jpa.springjpa.entity.Student;
 import jakarta.persistence.*;
+import org.hibernate.Session;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -13,7 +14,9 @@ public class SpringJpaApplication {
     public static void main(String[] args) {
 
         transactional((em) -> {
-
+            // N + 1 problem
+            var student = em.find(Student.class, 1);
+            System.out.println(student+ "\n" + student.getCourses());
         });
     }
 
