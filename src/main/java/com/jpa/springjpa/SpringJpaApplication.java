@@ -3,9 +3,9 @@ package com.jpa.springjpa;
 
 import com.jpa.springjpa.entity.Student;
 import jakarta.persistence.*;
-import org.hibernate.Session;
+import org.hibernate.jpa.QueryHints;
 
-import java.util.List;
+
 import java.util.function.Consumer;
 
 public class SpringJpaApplication {
@@ -35,6 +35,14 @@ public class SpringJpaApplication {
             }
             System.out.println(student);
 
+            //we can also use query hint and entity graph to achieve this
+            /*var eg = em.createEntityGraph(Student.class);
+            eg.addAttributeNodes("courses");
+
+            var s = em.createQuery("select s from Student s", Student.class)
+                    .setHint(QueryHints.JAKARTA_HINT_FETCHGRAPH, eg)
+                    .getResultList();
+            System.out.println(s);*/
         });
     }
 
