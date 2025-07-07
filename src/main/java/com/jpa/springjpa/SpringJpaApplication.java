@@ -5,6 +5,7 @@ import com.jpa.springjpa.entity.Student;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import org.hibernate.jpa.QueryHints;
 
 
@@ -19,6 +20,10 @@ public class SpringJpaApplication {
             // need to customization or category wise search
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<Student> cq = cb.createQuery(Student.class);
+            Root<Student> root = cq.from(Student.class);
+
+            TypedQuery<Student> query = em.createQuery(cq);
+            query.getResultStream().forEach(System.out::println);
         });
     }
 
