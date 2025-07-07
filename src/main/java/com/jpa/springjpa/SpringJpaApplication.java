@@ -3,6 +3,8 @@ package com.jpa.springjpa;
 
 import com.jpa.springjpa.entity.Student;
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
 import org.hibernate.jpa.QueryHints;
 
 
@@ -14,7 +16,9 @@ public class SpringJpaApplication {
     public static void main(String[] args) {
 
         transactional((em) -> {
-
+            // need to customization or category wise search
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Student> cq = cb.createQuery(Student.class);
         });
     }
 
