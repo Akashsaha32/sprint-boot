@@ -19,7 +19,7 @@ public class SpringJpaApplication {
 
         transactional((em) -> {
             // need to customization or category wise search
-            CriteriaBuilder cb = em.getCriteriaBuilder();
+            /*CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<Student> cq = cb.createQuery(Student.class);
             Root<Student> root = cq.from(Student.class);
             root.fetch("courses", JoinType.LEFT);
@@ -28,6 +28,21 @@ public class SpringJpaApplication {
 
             TypedQuery<Student> query = em.createQuery(cq);
             query.getResultStream().forEach(System.out::println);
+             */
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            //CriteriaQuery<String> cq = cb.createQuery(String.class);
+            CriteriaQuery<Object[]> cq = cb.createQuery(Object[].class);
+            Root<Student> root = cq.from(Student.class);
+            //root.fetch("courses", JoinType.LEFT);
+            cq.multiselect(root.get("name"), root.get("cgpa"));
+            cq.where(cb.equal(root.get("id"), 1));
+            //cq.where(cb.equal(root.get("name"), "Akash Saha"));
+            //cq.where(cb.equal(root.get("courses").get("code"), "CSE-231"));
+
+            TypedQuery<Object[]> query = em.createQuery(cq);
+            query.getResultStream().forEach((a) -> {
+                System.out.println(a[0]+", "+a[1]);
+            });
         });
     }
 
