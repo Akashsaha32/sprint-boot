@@ -18,13 +18,6 @@ public class SpringJpaApplication {
     private final static EntityManager em = emf.createEntityManager();
     public static void main(String[] args) {
 
-        var filter = new ProductSearchDTO(
-                "Mac",
-                "Laptop",
-                20000,
-                180000,
-                List.of("HP", "Samsung", "DELL", "MAC")
-        );
 
         transactional((em) -> {
 

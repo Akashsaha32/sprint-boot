@@ -27,3 +27,7 @@ public class Student {
     @JoinColumn(name = "student_id", referencedColumnName = "id")
     List<Course> courses;
 }
+
+// DDL
+// DML
+// Application Layer

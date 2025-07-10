@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface StudentDAO extends JpaRepository<Student, Integer> {
-    @Query("SELECT s FROM Student s")
+    @Query("SELECT s FROM Student_Relationship s")
     List<Student> getAll();
 }
