@@ -20,9 +20,9 @@ public class Student_Relationship {
     /*
         Here this constrain is add with this name
         Constrain is if Student exist then Address of that Student can not be deleted
-        If we don't want constrain then can set
+        If we don't want constrain then can set "ConstraintMode.NO_CONSTRAINT"
      */
     @OneToOne
-    @JoinColumn(foreignKey = @ForeignKey(name = "Address_primary_key"))
+    @JoinColumn(foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private Address address;
 }
