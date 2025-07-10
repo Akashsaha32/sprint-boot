@@ -19,10 +19,10 @@ public class Student_Relationship {
     //here Student_Relationship is owner and Address is target Entity
     /*
         Here this constrain is add with this name
-        Constrain is if Student exist then Address of that Student can not be deleted
+        Foreign Key Constrain is if Student exist then Address of that Student can not be deleted
         If we don't want constrain then can set "ConstraintMode.NO_CONSTRAINT"
      */
     @OneToOne
-    @JoinColumn(foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    @JoinColumn(name = "address_identifier", referencedColumnName = "aid")
     private Address address;
 }

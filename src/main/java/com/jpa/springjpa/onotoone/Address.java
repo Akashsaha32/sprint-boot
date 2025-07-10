@@ -1,9 +1,6 @@
 package com.jpa.springjpa.onotoone;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -16,6 +13,12 @@ public class Address {
     private Integer aid;
     private String house;
     private Integer road;
+
+    /*
+        want to delegate ownership, I want to access this table from only student_relationship table
+     */
+    @OneToOne(mappedBy = "address")
+    private Student_Relationship sid;
 
     public Address(String house, Integer road) {
         this.house = house;
