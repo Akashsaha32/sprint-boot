@@ -25,11 +25,9 @@ public class Student {
     /*
     *   If mapping is lie in only student class it will be called unidirection
     *   if make mapping in course class also it will be called bidirectional
+    *   in many to many relationship there is no owner ship
     */
-    @OneToMany(mappedBy = "student")
-    /*@JoinTable(name = "stu_course",
-        joinColumns = @JoinColumn(name = "sid"), inverseJoinColumns = @JoinColumn(name = "cid")
-    )*/
+    @ManyToMany
     List<Course> courses;
 }
 
