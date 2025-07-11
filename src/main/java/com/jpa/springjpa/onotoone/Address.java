@@ -3,7 +3,7 @@ package com.jpa.springjpa.onotoone;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity
+//@Entity
 @Getter
 @Setter
 @NoArgsConstructor

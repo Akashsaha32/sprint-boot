@@ -11,11 +11,9 @@ import java.util.List;
 @Table(name = "Student_table")
 @AllArgsConstructor
 @NoArgsConstructor
-//@ToString(exclude = {"courses"})
 @ToString
 @Getter
 @Setter
-@DynamicUpdate
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +21,15 @@ public class Student {
     private String name;
     private double cgpa;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id", referencedColumnName = "id")
+
+    /*
+    *   If mapping is lie in only student class it will be called unidirection
+    *   if make mapping in course class also it will be called bidirectional
+    */
+    @OneToMany(mappedBy = "student")
+    /*@JoinTable(name = "stu_course",
+        joinColumns = @JoinColumn(name = "sid"), inverseJoinColumns = @JoinColumn(name = "cid")
+    )*/
     List<Course> courses;
 }
 
