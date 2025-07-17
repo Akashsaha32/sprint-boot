@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.repository.cdi.Eager;
 
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name = "Student_table")
@@ -27,7 +28,8 @@ public class Student {
     * that's why it is called Cascade Relationship
     * There are 5 cascade type
     */
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, optional = false)
+    @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private Course course;
 
     public Student(String name, double cgpa, Course course) {

@@ -21,12 +21,28 @@ public class SpringJpaApplication {
 
 
         transactional((em) -> {
-            var c = new Course("CSE-226", "Algorithms");
-            var s = new Student("Akash Saha", 3.28, c);
-            em.persist(c);
-            //when we want to save s it needed c_id, if c is not saved we don't get id so exception happen.
-            em.persist(s);
+            /*
+            * A object will be deleted by System.gc()
+            * If nothing is to point this
+            */
+            //insert(em);
+
+            //now remove using cascade relationship
+            var s = em.find(Student.class, 1);
+            remove(em, s);
+
         });
+    }
+
+    public static void remove(EntityManager em, Object entity) {
+        em.remove(entity);
+    }
+
+    public static void insert(EntityManager em) {
+        var c = new Course("CSE-226", "Algorithms");
+        var s = new Student("Akash Saha", 3.28, c);
+
+        em.persist(s);
     }
 
     private static void transactional(Consumer<EntityManager> consumer) {
