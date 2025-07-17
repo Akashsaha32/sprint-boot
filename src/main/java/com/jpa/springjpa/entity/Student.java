@@ -27,8 +27,8 @@ public class Student {
     *   if make mapping in course class also it will be called bidirectional
     *   in many to many relationship there is no owner ship
     */
-    @ManyToMany
-    List<Course> courses;
+    @OneToOne
+    private Course course;
 }
 
 // DDL

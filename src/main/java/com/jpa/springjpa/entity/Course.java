@@ -20,7 +20,4 @@ public class Course {
     private Integer id;
     private String code;
     private String name;
-
-    @ManyToMany(mappedBy = "courses")
-    List<Student> students;
 }
