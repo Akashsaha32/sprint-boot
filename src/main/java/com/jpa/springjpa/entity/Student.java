@@ -9,7 +9,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "Student_table")
-@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Getter
@@ -23,12 +22,19 @@ public class Student {
 
 
     /*
-    *   If mapping is lie in only student class it will be called unidirection
-    *   if make mapping in course class also it will be called bidirectional
-    *   in many to many relationship there is no owner ship
+    *   When we use Course object to save student it will check before save student it will
+    * save course
+    * that's why it is called Cascade Relationship
+    * There are 5 cascade type
     */
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Course course;
+
+    public Student(String name, double cgpa, Course course) {
+        this.name = name;
+        this.cgpa = cgpa;
+        this.course = course;
+    }
 }
 
 // DDL

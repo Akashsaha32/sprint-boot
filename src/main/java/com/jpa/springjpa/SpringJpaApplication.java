@@ -2,6 +2,7 @@ package com.jpa.springjpa;
 
 
 import com.jpa.springjpa.dto.ProductSearchDTO;
+import com.jpa.springjpa.entity.Course;
 import com.jpa.springjpa.entity.Product;
 import com.jpa.springjpa.entity.Student;
 import jakarta.persistence.*;
@@ -20,7 +21,11 @@ public class SpringJpaApplication {
 
 
         transactional((em) -> {
-
+            var c = new Course("CSE-226", "Algorithms");
+            var s = new Student("Akash Saha", 3.28, c);
+            em.persist(c);
+            //when we want to save s it needed c_id, if c is not saved we don't get id so exception happen.
+            em.persist(s);
         });
     }
 
