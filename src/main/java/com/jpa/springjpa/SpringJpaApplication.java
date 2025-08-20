@@ -28,8 +28,11 @@ public class SpringJpaApplication {
             //insert(em);
 
             //now remove using cascade relationship
-            var s = em.find(Student.class, 1);
-            remove(em, s);
+            /*var s = em.find(Student.class, 8);
+            System.out.println(s.getCourse());
+            s.setCourse(null);
+            System.out.println(s.getCourse());
+            em.remove(s);*/
 
         });
     }

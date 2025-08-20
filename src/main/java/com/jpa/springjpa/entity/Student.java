@@ -28,8 +28,7 @@ public class Student {
     * that's why it is called Cascade Relationship
     * There are 5 cascade type
     */
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, optional = false)
-    @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @OneToOne(cascade = {CascadeType.PERSIST}, orphanRemoval = true)
     private Course course;
 
     public Student(String name, double cgpa, Course course) {
