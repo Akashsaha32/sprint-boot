@@ -10,6 +10,7 @@ import jakarta.persistence.criteria.*;
 import org.hibernate.jpa.QueryHints;
 
 
+import javax.crypto.spec.SecretKeySpec;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -18,7 +19,6 @@ public class SpringJpaApplication {
     private final static EntityManagerFactory emf = Persistence.createEntityManagerFactory("test_01");
     private final static EntityManager em = emf.createEntityManager();
     public static void main(String[] args) {
-
 
         transactional((em) -> {
             /*
