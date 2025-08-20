@@ -5,6 +5,8 @@ import com.jpa.springjpa.dto.ProductSearchDTO;
 import com.jpa.springjpa.entity.Course;
 import com.jpa.springjpa.entity.Product;
 import com.jpa.springjpa.entity.Student;
+import com.jpa.springjpa.orphanRemoval.Cart;
+import com.jpa.springjpa.orphanRemoval.CartItem;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.*;
 import org.hibernate.jpa.QueryHints;
@@ -34,6 +36,17 @@ public class SpringJpaApplication {
             System.out.println(s.getCourse());
             em.remove(s);*/
 
+            /*
+            CartItem i1 = new CartItem("Hp laptop");
+            CartItem i2 = new CartItem("Refrigerator");
+            CartItem i3 = new CartItem("Samsung Galaxy");
+
+            Cart cart = new Cart("Akash Saha", List.of(i1, i2, i3));
+
+            em.persist(cart);
+            */
+            var cart = em.find(Cart.class, 1);
+            cart.getItems().remove(2);
         });
     }
 
